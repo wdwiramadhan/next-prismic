@@ -1,5 +1,11 @@
- 
-export default function Avatar({ name, picture }) {
+type Props = {
+  name : any,
+  picture : Picture
+}
+type Picture = {
+  url : string
+}
+export default function Avatar({ name, picture }:Props) {
   return (
     <div className="flex items-center">
       <img

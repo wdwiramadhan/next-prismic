@@ -9,15 +9,16 @@ import PostHeader from '../../components/posts/post-header'
 import Layout from '../../components/layouts/layout'
 import { getAllPostsWithSlug, getPostAndMorePosts } from '../../lib/api'
 import PostTitle from '../../components/posts/post-title'
+import {CMS_NAME} from '../../lib/constants'
+import SectionSparator from '../../components/section-sparator'
 
-export default function Post({ post, morePosts, preview }) {
+export default function Post({ post, morePosts}) {
   const router = useRouter()
   if (!router.isFallback && !post?._meta?.uid) {
     return <ErrorPage statusCode={404} />
   }
-
   return (
-    <Layout preview={preview}>
+    <Layout>
       <Container>
         <Header />
         {router.isFallback ? (
@@ -36,10 +37,11 @@ export default function Post({ post, morePosts, preview }) {
                 coverImage={post.coverimage}
                 date={post.date}
                 author={post.author}
+                slug={post._meta.uid}
               />
               <PostBody content={post.content} />
             </article>
-            <SectionSeparator />
+            <SectionSparator/>
             {morePosts && morePosts.length > 0 && (
               <Posts posts={morePosts} />
             )}
@@ -65,7 +67,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 export async function getStaticPaths() {
   const allPosts = await getAllPostsWithSlug()
   return {
-    paths: allPosts?.map(({ node }) => `/posts/${node._meta.uid}`) || [],
+    paths: allPosts?.map(({ node }) => `/post/${node._meta.uid}`) || [],
     fallback: true,
   }
 }

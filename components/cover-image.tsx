@@ -1,7 +1,12 @@
 import cn from 'classnames'
 import Link from 'next/link'
 
-export default function CoverImage({ title, url, slug }) {
+type Props = {
+  title :string,
+  url : string,
+  slug : string
+}
+export default function CoverImage({ title, url, slug }:Props) {
   const image = (
     <img
       src={url}
@@ -14,7 +19,7 @@ export default function CoverImage({ title, url, slug }) {
   return (
     <div className="-mx-5 sm:mx-0">
       {slug ? (
-        <Link as={`/posts/${slug}`} href="/posts/[slug]">
+        <Link as={`/post/${slug}`} href="/post/[slug]">
           <a aria-label={title}>{image}</a>
         </Link>
       ) : (

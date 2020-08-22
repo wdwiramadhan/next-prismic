@@ -1,7 +1,11 @@
 import Footer from './footer'
 import Meta from './meta'
+import { ReactNode } from 'react'
 
-export default function Layout({ children }) {
+type Props = {
+  children: ReactNode
+}
+export default function Layout({ children }:Props) {
   return (
     <>
       <Meta />
